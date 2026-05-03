@@ -63,19 +63,30 @@ The residuals plot for the Fixed Effects model demonstrates a relatively even di
 
 ![Residuals Plot](blog_files/blog_13_0.png)
 
-### 4.3 Uncovering Anomalies
+### 4.3 Uncovering Anomalies and the North-South Divide
 Our model also quantified two critical non-pollution factors:
-- **Regional Inequity:** The North West and North East & Yorkshire regions have a baseline admission rate of ~230-240 more per 100k people than the East of England, pointing to compounded socio-demographic health disparities.
+- **Regional Inequity (The North-South Divide):** The North West and North East & Yorkshire regions have a baseline admission rate of ~230-240 more per 100k people than the East of England. This striking disparity points to compounded socio-demographic health disparities. Historically, the North of England has experienced higher levels of industrial decline, leading to systemic economic deprivation, poorer housing quality, and higher smoking prevalence. These factors collectively increase the population's vulnerability to respiratory diseases, meaning that even when air quality is accounted for, the baseline health of the population drives higher hospitalization rates.
 - **COVID-19:** The year coefficients for 2020 and 2021 showed massive drops (-310 and -318 per 100k), validating the model's accuracy in capturing lockdown-induced reductions in transmissible respiratory infections.
 
 ---
 
-## 5. Conclusion
-This study provides clear evidence that fine particulate matter (PM2.5) is a statistically significant driver of respiratory hospital admissions at the regional level, overpowering the independent effects of NO2 and O3. While air quality is improving nationally, the quantified impact of PM2.5 gives the NHS a tangible metric for demand forecasting. Furthermore, the stark baseline disparities highlight that environmental policy must be coupled with targeted public health funding in the North of England to address compounded vulnerabilities.
+## 5. Literature Context
+The findings of this empirical project strongly align with existing epidemiological literature regarding air pollution and respiratory morbidity. Studies such as those by the Royal College of Physicians (2016) have long emphasized that PM2.5, due to its microscopic size, bypasses the body's natural respiratory defenses and penetrates deep into the lungs, directly exacerbating conditions like asthma and COPD. 
+
+While NO2 is a known respiratory irritant primarily associated with vehicular emissions, our model's finding that its independent effect becomes statistically insignificant when controlling for PM2.5 suggests a high degree of collinearity between the pollutants in regional aggregations, or that PM2.5 is simply the more dominant acute trigger for hospitalization. Furthermore, the stark regional inequalities observed echo the findings of the Marmot Review (2010, 2020), which highlighted the entrenched "health gradient" across England where socioeconomic deprivation in Northern regions correlates directly with reduced healthy life expectancy.
 
 ---
 
-## 6. References
+## 6. Conclusion & Policy Implications
+This study provides clear, data-driven evidence that fine particulate matter (PM2.5) is a statistically significant driver of respiratory hospital admissions at the regional level, overpowering the independent effects of NO2 and O3. While air quality is improving nationally, the quantified impact of PM2.5 gives the NHS a tangible metric for demand forecasting. 
+
+From a policy perspective, these findings underscore that:
+1. **Targeted Emission Reductions:** Environmental policies, such as the expansion of Ultra Low Emission Zones (ULEZ) and Clean Air Zones (CAZ), must prioritize the reduction of PM2.5 sources (like wood burning and industrial emissions), rather than focusing solely on NO2 from diesel vehicles.
+2. **Addressing the Health Gradient:** The stark baseline disparities highlight that environmental policy alone is insufficient. It must be coupled with targeted public health funding, smoking cessation programs, and housing improvements in the North of England to address compounded vulnerabilities.
+
+---
+
+## 7. References
 1. Department for Environment, Food & Rural Affairs (DEFRA). Automatic Urban and Rural Network (AURN) datasets.
 2. NHS England. Hospital Episode Statistics (HES) for Respiratory Admissions.
 3. Office for National Statistics (ONS). Regional Population Estimates.

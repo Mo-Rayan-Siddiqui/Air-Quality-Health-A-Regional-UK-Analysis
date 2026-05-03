@@ -1,5 +1,8 @@
 # Air Quality & Health: A Regional UK Analysis
 
+**🌐 Live Interactive Website:** [https://nabeelvolt.github.io/Air-Quality-Health-A-Regional-UK-Analysis/](https://nabeelvolt.github.io/Air-Quality-Health-A-Regional-UK-Analysis/)
+**📄 Full Research Report:** [Full_Research_Report.md](./Full_Research_Report.md)
+
 This project investigates the relationship between regional air pollution and respiratory health in the UK. By merging DEFRA's UK air quality monitoring data (PM2.5, NO2, O3) with NHS respiratory hospital admissions data (by region), we aim to identify whether localized pollution levels can predictably explain hospital demand.
 
 ## 📊 Policy-Relevant Findings
@@ -37,3 +40,51 @@ python -m pytest tests/ -v
 ```
 
 The test suite automatically verifies that the output datasets contain no missing values, hold the expected schemas, calculate accurate per-capita rates, and successfully type-cast all variables.
+
+## 🛠️ Replication Guide
+
+To replicate this analysis from scratch on your local machine, follow these exact steps:
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/Nabeelvolt/Air-Quality-Health-A-Regional-UK-Analysis.git
+   cd Air-Quality-Health-A-Regional-UK-Analysis
+   ```
+
+2. **Install dependencies:**
+   Ensure you have Python 3.9+ installed, then run:
+   ```bash
+   pip install -r requirements.txt
+   ```
+   *(Core dependencies include: `pandas`, `geopandas`, `statsmodels`, `matplotlib`, `seaborn`, `pytest`, `jupyter`)*
+
+3. **Run the Data Pipeline:**
+   Execute the data cleaning and merging script. This processes the raw data in `data/raw/` and generates the final dataset `merged_regional_data.csv` in the `data/clean/` folder.
+   ```bash
+   python scripts/clean_data.py
+   ```
+
+4. **Verify Data Integrity:**
+   Run the test suite to ensure the data was merged correctly without data loss or schema errors:
+   ```bash
+   python -m pytest tests/ -v
+   ```
+
+5. **Generate the Analysis and Visualizations:**
+   Run the Jupyter notebook to execute the Fixed Effects OLS regression and generate all spatial and temporal plots:
+   ```bash
+   jupyter nbconvert --to html --execute blog.ipynb
+   ```
+
+6. **Extract Results for the Website:**
+   Run the extraction script to dump the regression coefficients to a JSON structure used by the interactive website:
+   ```bash
+   python extract_results.py
+   ```
+
+7. **View the Interactive Website locally:**
+   Start a local HTTP server in the `website/` directory to view the interactive Plotly charts:
+   ```bash
+   python -m http.server 8080 --directory website
+   ```
+   *Then navigate to `http://localhost:8080` in your web browser.*
