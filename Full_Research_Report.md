@@ -1,5 +1,5 @@
 # Air Quality & Respiratory Health in the UK: A Regional Analysis
-**Author:** NabAli  
+**Author:** Rayan Siddiqui  
 **Date:** May 2026  
 
 ---
