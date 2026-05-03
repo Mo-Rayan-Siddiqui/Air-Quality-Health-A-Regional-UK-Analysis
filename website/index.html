@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Quality & Health: A Regional UK Analysis</title>
+    <meta name="description" content="Interactive analysis of UK air pollution and respiratory hospital admissions across English regions (2015-2023).">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ═══════════════════════ HERO ═══════════════════════ -->
+<header id="hero">
+    <div class="hero-bg-overlay"></div>
+    <nav id="main-nav">
+        <div class="nav-brand">AQ&thinsp;×&thinsp;Health</div>
+        <ul class="nav-links">
+            <li><a href="#abstract">Abstract</a></li>
+            <li><a href="#introduction">Introduction</a></li>
+            <li><a href="#methodology">Methodology</a></li>
+            <li><a href="#eda">Analysis</a></li>
+            <li><a href="#regression">Regression</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+        </ul>
+    </nav>
+    <div class="hero-content">
+        <p class="hero-kicker">Regional UK Study&nbsp;&bull;&nbsp;2015 – 2023</p>
+        <h1>Does Dirty Air Fill<br>Hospital Wards?</h1>
+        <p class="hero-sub">An interactive, data-driven investigation into the relationship between air pollution and respiratory hospital admissions across England.</p>
+        <div class="hero-stats">
+            <div class="stat-card">
+                <span class="stat-number" id="stat-regions">7</span>
+                <span class="stat-label">Regions Analysed</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="stat-years">9</span>
+                <span class="stat-label">Years of Data</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="stat-admissions">~7.5M</span>
+                <span class="stat-label">Total Admissions</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number" id="stat-rsq">0.95</span>
+                <span class="stat-label">Model R²</span>
+            </div>
+        </div>
+        <a href="#abstract" class="scroll-cta">Explore the findings&ensp;↓</a>
+    </div>
+</header>
+
+<!-- ═══════════════════════ ABSTRACT ═══════════════════════ -->
+<section id="abstract" class="section">
+    <div class="container">
+        <div class="section-badge">Abstract</div>
+        <h2>Executive Summary</h2>
+        <div class="abstract-grid">
+            <div class="abstract-text">
+                <p>This study investigates the localized impact of air pollution—specifically <strong>Fine Particulate Matter (PM2.5)</strong>, <strong>Nitrogen Dioxide (NO2)</strong>, and <strong>Ozone (O3)</strong>—on respiratory hospital admissions across the regions of England from 2015 to 2023.</p>
+                <p>By merging environmental monitoring data from DEFRA with healthcare demand data from the NHS, this report builds a multi-variate <strong>Fixed Effects OLS regression model</strong>.</p>
+            </div>
+            <div class="key-finding-card">
+                <div class="finding-icon">⚠</div>
+                <div class="finding-number">+40</div>
+                <div class="finding-unit">admissions per 100k</div>
+                <div class="finding-desc">For every 1 μg/m³ increase in PM2.5, controlling for region and year.</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════ INTRODUCTION ═══════════════════════ -->
+<section id="introduction" class="section section-dark">
+    <div class="container">
+        <div class="section-badge">01</div>
+        <h2>Introduction</h2>
+        <div class="two-col">
+            <div>
+                <p>Air pollution remains one of the most critical environmental determinants of public health. While national studies often generalize the impact of pollutants, <strong>localized regional analysis</strong> provides actionable intelligence for healthcare administration and urban planning.</p>
+                <p>This project specifically examines the varying degrees of respiratory hospital admissions across English regions and correlates them with key pollutants.</p>
+            </div>
+            <div>
+                <p>The primary objective is to determine whether localized spikes in specific pollutants consistently predict increased hospital demand.</p>
+                <p>By identifying the primary culprits among PM2.5, NO2, and O3, policymakers can target emission-reduction strategies more effectively, and the NHS can model future respiratory ward demand against air quality forecasts.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════ METHODOLOGY ═══════════════════════ -->
+<section id="methodology" class="section">
+    <div class="container">
+        <div class="section-badge">02</div>
+        <h2>Methodology</h2>
+        <div class="method-cards">
+            <div class="method-card">
+                <div class="method-icon">🌫️</div>
+                <h3>Environmental Data</h3>
+                <p>Sourced from <strong>DEFRA's Automatic Urban and Rural Network (AURN)</strong>. Daily metrics for PM2.5, NO2, and O3 were aggregated into annual regional averages.</p>
+            </div>
+            <div class="method-card">
+                <div class="method-icon">🏥</div>
+                <h3>Healthcare Data</h3>
+                <p>Sourced from <strong>NHS England</strong>, providing total annual respiratory hospital admissions mapped to English administrative regions.</p>
+            </div>
+            <div class="method-card">
+                <div class="method-icon">📊</div>
+                <h3>Normalization</h3>
+                <p>Population data from <strong>ONS/Nomis</strong> was utilized to normalize admissions into a standardized rate: <code>admission_rate_per_100k</code>.</p>
+            </div>
+            <div class="method-card">
+                <div class="method-icon">🔬</div>
+                <h3>Statistical Model</h3>
+                <p>Progressive OLS regression, culminating in a <strong>Fixed Effects model</strong> controlling for regional invariants and temporal shocks (e.g., COVID-19).</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════ EDA ═══════════════════════ -->
+<section id="eda" class="section section-dark">
+    <div class="container">
+        <div class="section-badge">03</div>
+        <h2>Exploratory Data Analysis</h2>
+
+        <!-- Time Series -->
+        <div class="chart-block">
+            <h3>PM2.5 Trends Over Time by Region</h3>
+            <p class="chart-desc">A clear, consistent downward trend in average PM2.5 levels is visible across all regions from 2015 to 2023, reflecting the success of recent clean air initiatives. Use the legend to isolate individual regions.</p>
+            <div id="chart-timeseries" class="chart-container"></div>
+        </div>
+
+        <!-- Bar Chart: Avg Admissions -->
+        <div class="chart-block">
+            <h3>Average Respiratory Admissions by Region</h3>
+            <p class="chart-desc">The North West and North East &amp; Yorkshire consistently record the highest admission rates per 100k, highlighting deep-rooted regional health disparities.</p>
+            <div id="chart-bar-admissions" class="chart-container"></div>
+        </div>
+
+        <!-- Scatter Plot -->
+        <div class="chart-block">
+            <h3>PM2.5 vs Respiratory Admission Rate</h3>
+            <p class="chart-desc">A direct comparison reveals a positive correlation, but distinct clustering by region indicates that while pollution drives admissions, baseline rates differ wildly depending on geography. Hover over points for details.</p>
+            <div id="chart-scatter" class="chart-container"></div>
+        </div>
+
+        <!-- Heatmap -->
+        <div class="chart-block">
+            <h3>Pollutant Correlation Heatmap</h3>
+            <p class="chart-desc">Examining the cross-correlations between the three measured pollutants and the admission rate reveals which variables move together.</p>
+            <div id="chart-heatmap" class="chart-container"></div>
+        </div>
+
+        <!-- Multi-pollutant radar -->
+        <div class="chart-block">
+            <h3>Regional Pollutant Profiles (Latest Year: 2023)</h3>
+            <p class="chart-desc">Comparing the 2023 pollutant fingerprint of each region. London stands out with the highest PM2.5 and NO2, while rural South West leads on O3.</p>
+            <div id="chart-radar" class="chart-container"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════ REGRESSION ═══════════════════════ -->
+<section id="regression" class="section">
+    <div class="container">
+        <div class="section-badge">04</div>
+        <h2>Regression Analysis</h2>
+
+        <!-- Model comparison table -->
+        <div class="chart-block">
+            <h3>Progressive Model Comparison</h3>
+            <p class="chart-desc">We built models of increasing complexity to test the robustness of the PM2.5 effect.</p>
+            <div class="table-wrapper">
+                <table id="model-table">
+                    <thead>
+                        <tr>
+                            <th>Model</th>
+                            <th>PM2.5 Coef.</th>
+                            <th>NO2 Coef.</th>
+                            <th>O3 Coef.</th>
+                            <th>Controls</th>
+                            <th>R²</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Baseline</strong></td>
+                            <td class="coef-positive">69.21***</td>
+                            <td>—</td>
+                            <td>—</td>
+                            <td>None</td>
+                            <td>0.219</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pollutant Controls</strong></td>
+                            <td class="coef-positive">61.20***</td>
+                            <td>3.02</td>
+                            <td>0.31</td>
+                            <td>NO2, O3</td>
+                            <td>0.220</td>
+                        </tr>
+                        <tr class="highlight-row">
+                            <td><strong>Fixed Effects ★</strong></td>
+                            <td class="coef-positive">39.99*</td>
+                            <td>−3.58</td>
+                            <td>2.02</td>
+                            <td>Region + Year</td>
+                            <td>0.950</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p class="table-note">★ Selected final model &nbsp;|&nbsp; *** p &lt; 0.001 &nbsp;|&nbsp; * p ≈ 0.05</p>
+        </div>
+
+        <!-- Coefficient plot -->
+        <div class="chart-block">
+            <h3>Pollutant Coefficients with Confidence Intervals</h3>
+            <p class="chart-desc">The coefficient plot shows PM2.5 is the dominant predictor. If the confidence interval does not cross zero, the effect is statistically significant.</p>
+            <div id="chart-coefficients" class="chart-container"></div>
+        </div>
+
+        <!-- Region fixed effects -->
+        <div class="chart-block">
+            <h3>Regional Baseline Disparities (Fixed Effects)</h3>
+            <p class="chart-desc">Even after controlling for air quality, regions in the North have significantly higher baseline admission rates compared to the reference (East of England).</p>
+            <div id="chart-region-fe" class="chart-container"></div>
+        </div>
+
+        <!-- Year fixed effects -->
+        <div class="chart-block">
+            <h3>Year Effects: The COVID-19 Anomaly</h3>
+            <p class="chart-desc">The year coefficients capture temporal shocks. The massive negative spikes in 2020 and 2021 reflect the dramatic drop in respiratory admissions during COVID-19 lockdowns.</p>
+            <div id="chart-year-fe" class="chart-container"></div>
+        </div>
+
+        <!-- Residuals -->
+        <div class="chart-block">
+            <h3>Residuals vs Predicted Values (Model Validation)</h3>
+            <p class="chart-desc">A well-fitted model should show residuals randomly scattered around zero. The plot below confirms our Fixed Effects model performs well with no systematic patterns.</p>
+            <div id="chart-residuals" class="chart-container"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════ CONCLUSION ═══════════════════════ -->
+<section id="conclusion" class="section section-dark">
+    <div class="container">
+        <div class="section-badge">05</div>
+        <h2>Conclusion &amp; Policy Implications</h2>
+        <div class="conclusion-grid">
+            <div class="conclusion-card">
+                <div class="conclusion-num">1</div>
+                <h3>Target PM2.5</h3>
+                <p>Fine particulate matter is the primary statistically significant pollutant driving hospital admissions. Environmental policy and low-emission zones should prioritize PM2.5 reduction above other metrics.</p>
+            </div>
+            <div class="conclusion-card">
+                <div class="conclusion-num">2</div>
+                <h3>Address Regional Inequity</h3>
+                <p>The severe baseline disparities in the North of England suggest that public health interventions must also address compounded socioeconomic vulnerabilities and healthcare access gaps in these specific regions.</p>
+            </div>
+            <div class="conclusion-card">
+                <div class="conclusion-num">3</div>
+                <h3>NHS Demand Forecasting</h3>
+                <p>The quantified coefficient (~40 additional admissions per 100k per 1 μg/m³ of PM2.5) provides a tangible, data-backed metric for the NHS to model expected respiratory ward demand based on localized air quality forecasts.</p>
+            </div>
+            <div class="conclusion-card">
+                <div class="conclusion-num">4</div>
+                <h3>Limitations</h3>
+                <p>The current data is aggregated at the broad regional level. Future analysis should incorporate Local Authority District (LAD) level data and socioeconomic indices such as the Index of Multiple Deprivation.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════ REFERENCES ═══════════════════════ -->
+<section id="references" class="section">
+    <div class="container">
+        <div class="section-badge">References</div>
+        <h2>Data Sources &amp; Citations</h2>
+        <ol class="ref-list">
+            <li>Department for Environment, Food &amp; Rural Affairs (DEFRA). <em>Automatic Urban and Rural Network (AURN) datasets</em>. <a href="https://uk-air.defra.gov.uk/" target="_blank">uk-air.defra.gov.uk</a></li>
+            <li>NHS England. <em>Hospital Episode Statistics (HES) for Respiratory Admissions</em>. <a href="https://digital.nhs.uk/" target="_blank">digital.nhs.uk</a></li>
+            <li>Office for National Statistics (ONS). <em>Regional Population Estimates</em>. <a href="https://www.ons.gov.uk/" target="_blank">ons.gov.uk</a></li>
+            <li>Seabold, S. &amp; Perktold, J. "statsmodels: Econometric and statistical modeling with python." <em>Proc. 9th Python in Science Conf.</em>, 2010.</li>
+            <li>Martin Sherwin (martinjc). <em>UK-GeoJSON</em>. GitHub repository for administrative boundary shapefiles.</li>
+        </ol>
+    </div>
+</section>
+
+<!-- ═══════════════════════ FOOTER ═══════════════════════ -->
+<footer id="footer">
+    <div class="container">
+        <p>Air Quality &amp; Health: A Regional UK Analysis &nbsp;|&nbsp; Built by <strong>NabAli</strong> &nbsp;|&nbsp; May 2026</p>
+        <p class="footer-links"><a href="https://github.com/Nabeelvolt/Air-Quality-Health-A-Regional-UK-Analysis" target="_blank">View on GitHub</a></p>
+    </div>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
