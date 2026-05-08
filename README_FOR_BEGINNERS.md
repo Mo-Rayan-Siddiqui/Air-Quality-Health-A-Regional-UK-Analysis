@@ -55,7 +55,7 @@ python -m http.server 8080 --directory website
 ```
 *Note: If you are on a Mac, you might need to type `python3` instead of `python`.*
 
-### Step 5: View the Website!
+### Step 5: View the Website
 Leave the black terminal window open. 
 Open your web browser (Chrome, Edge, Safari) and type this exactly into the address bar at the top:
 **`http://localhost:8080`**
