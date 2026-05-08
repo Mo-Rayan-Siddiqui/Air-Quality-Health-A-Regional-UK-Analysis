@@ -1,22 +1,22 @@
-# 🌟 A Beginner's Guide to the Air Quality & Health Project
+# A Beginner's Guide to the Air Quality & Health Project
 
 Welcome! If you don't have a background in Computer Science or Data Science, don't worry. This guide is written specifically for you. It explains how you can explore this project, view the findings, and even run the interactive website on your own computer step-by-step.
 
 ---
 
-## 1. The Easiest Way: View it Online! 🌐
+## 1. The Easiest Way: View it Online.
 You don't actually need to download anything to see the results. The interactive website is hosted online for free.
 
 Simply click this link to see the interactive charts and read the findings:
-**👉 [Live Interactive Website](https://mo-rayan-siddiqui.github.io/Air-Quality-Health-A-Regional-UK-Analysis/)**
+** [Live Interactive Website](https://mo-rayan-siddiqui.github.io/Air-Quality-Health-A-Regional-UK-Analysis/)**
 
 If you just want to read the written research report (without the code), click here:
-**👉 [Full Research Report](./Full_Research_Report.md)**
+** [Full Research Report](./Full_Research_Report.md)**
 
 ---
 
 ## 2. Viewing the Project on Your Computer (Without Coding)
-If you want to save the project to your computer and look at the charts offline, it's very easy:
+If you want to save the project to your computer and look at the charts offline, it's simple:
 
 ### Step 1: Download the Project
 1. Go to the top of this GitHub page.
@@ -27,7 +27,7 @@ If you want to save the project to your computer and look at the charts offline,
 ### Step 2: Open the Offline Report
 1. Open the folder you just unzipped.
 2. Double-click the file named **`blog.html`**. 
-3. It will open in your web browser (like Chrome or Safari). This file contains the entire data science notebook, including all the maps and charts, fully rendered!
+3. It will open in your web browser (like Chrome or Safari). This file contains the entire data science notebook, including all the maps and charts, fully rendered.
 
 ---
 
