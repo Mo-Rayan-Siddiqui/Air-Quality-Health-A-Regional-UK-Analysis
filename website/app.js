@@ -250,12 +250,18 @@ function renderResiduals() {
     const yearCoefs = {2015:0,2016:-35.1,2017:-74.93,2018:-77.2,2019:-76.37,2020:-309.97,2021:-318.31,2022:-130.6,2023:-157.92};
     const predicted = DATA.map(d => intercept + 39.99*d.pm25 + (-3.58)*d.no2 + 2.02*d.o3 + (regionCoefs[d.region]||0) + (yearCoefs[d.year]||0));
     const residuals = DATA.map((d, i) => d.rate - predicted[i]);
-    Plotly.newPlot('chart-residuals', [{
-        x: predicted, y: residuals, mode: 'markers', type: 'scatter',
-        marker: { size: 10, color: '#3b82f6', opacity: 0.75, line: { width: 1.5, color: '#fff' } },
-        text: DATA.map(d => `${d.region} (${d.year})`),
-        hovertemplate: '<b>%{text}</b><br>Predicted: %{x:.1f}<br>Residual: %{y:.1f}<extra></extra>'
-    }], {
+    const traces = REGIONS.map((r, i) => {
+        const rd = DATA.filter(d => d.region === r);
+        const r_predicted = rd.map(d => intercept + 39.99*d.pm25 + (-3.58)*d.no2 + 2.02*d.o3 + (regionCoefs[d.region]||0) + (yearCoefs[d.year]||0));
+        const r_residuals = rd.map((d, j) => d.rate - r_predicted[j]);
+        return {
+            x: r_predicted, y: r_residuals, name: r, mode: 'markers', type: 'scatter',
+            marker: { size: 10, color: COLORS[i], opacity: 0.85, line: { width: 1.5, color: '#fff' } },
+            text: rd.map(d => `${d.region} (${d.year})`),
+            hovertemplate: '<b>%{text}</b><br>Predicted: %{x:.1f}<br>Residual: %{y:.1f}<extra></extra>'
+        };
+    });
+    Plotly.newPlot('chart-residuals', traces, {
         ...LAYOUT_BASE,
         xaxis: { ...LAYOUT_BASE.xaxis, title: 'Predicted Admission Rate' },
         yaxis: { ...LAYOUT_BASE.yaxis, title: 'Residual' },

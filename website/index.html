@@ -23,6 +23,7 @@
             <li><a href="#methodology">Methodology</a></li>
             <li><a href="#eda">Analysis</a></li>
             <li><a href="#regression">Regression</a></li>
+            <li><a href="#diagnostics">Diagnostics</a></li>
             <li><a href="#conclusion">Conclusion</a></li>
         </ul>
     </nav>
@@ -242,6 +243,53 @@
             <h3>Residuals vs Predicted Values (Model Validation)</h3>
             <p class="chart-desc">A well-fitted model should show residuals randomly scattered around zero. The plot below confirms our Fixed Effects model performs well with no systematic patterns.</p>
             <div id="chart-residuals" class="chart-container"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════════ DIAGNOSTICS ═══════════════════════ -->
+<section id="diagnostics" class="section">
+    <div class="container">
+        <div class="section-badge">05</div>
+        <h2>Robustness Checks &amp; Diagnostics</h2>
+        <div class="two-col">
+            <div class="chart-block">
+                <h3>Testing for Heteroskedasticity (Breusch-Pagan Test)</h3>
+                <p class="chart-desc">Given the borderline p-value for PM2.5 (p = 0.052), it is crucial to justify our model specification. A core assumption of OLS is homoskedasticity. We performed the Breusch-Pagan test on the Fixed Effects model.</p>
+                <div class="table-wrapper">
+                    <table style="width:100%; border-collapse: collapse; margin-top: 15px;">
+                        <tbody>
+                            <tr style="border-bottom: 1px solid rgba(148,163,184,0.2);">
+                                <td style="padding: 10px 0; color: #f1f5f9;">Lagrange multiplier statistic:</td>
+                                <td style="padding: 10px 0; text-align: right; font-family: 'JetBrains Mono', monospace;">13.9103</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(148,163,184,0.2);">
+                                <td style="padding: 10px 0; color: #f1f5f9;">p-value:</td>
+                                <td style="padding: 10px 0; text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: bold; color: #10b981;">0.2380</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid rgba(148,163,184,0.2);">
+                                <td style="padding: 10px 0; color: #f1f5f9;">f-value:</td>
+                                <td style="padding: 10px 0; text-align: right; font-family: 'JetBrains Mono', monospace;">1.3413</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px 0; color: #f1f5f9;">f p-value:</td>
+                                <td style="padding: 10px 0; text-align: right; font-family: 'JetBrains Mono', monospace; font-weight: bold; color: #10b981;">0.2227</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="margin-top: 15px; padding: 15px; background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10b981; border-radius: 4px;">
+                    <strong>Interpretation:</strong> Since the p-value (> 0.05) is not significant, we fail to reject the null hypothesis of homoskedasticity, meaning our standard errors are robust and reliable.
+                </p>
+            </div>
+
+            <div class="chart-block">
+                <h3>Partial Regression Plot for PM2.5</h3>
+                <p class="chart-desc">This plot isolates the true independent effect of PM2.5 on hospital admissions after statistically partialling out the confounding effects of region, year, NO2, and O3.</p>
+                <div style="background: white; padding: 10px; border-radius: 8px; margin-top: 15px; text-align: center;">
+                    <img src="images/partial_regression.png" alt="Partial Regression Plot for PM2.5" style="max-width: 100%; height: auto; border-radius: 4px;">
+                </div>
+            </div>
         </div>
     </div>
 </section>
