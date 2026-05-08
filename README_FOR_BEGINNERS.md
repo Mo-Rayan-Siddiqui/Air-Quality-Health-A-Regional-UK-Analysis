@@ -8,7 +8,7 @@ Welcome! If you don't have a background in Computer Science or Data Science, don
 You don't actually need to download anything to see the results. The interactive website is hosted online for free.
 
 Simply click this link to see the interactive charts and read the findings:
-**👉 [Live Interactive Website](https://nabeelvolt.github.io/Air-Quality-Health-A-Regional-UK-Analysis/)**
+**👉 [Live Interactive Website](https://mo-rayan-siddiqui.github.io/Air-Quality-Health-A-Regional-UK-Analysis/)**
 
 If you just want to read the written research report (without the code), click here:
 **👉 [Full Research Report](./Full_Research_Report.md)**

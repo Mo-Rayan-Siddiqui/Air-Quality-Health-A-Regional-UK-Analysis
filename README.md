@@ -1,6 +1,6 @@
 # Air Quality & Health: A Regional UK Analysis
 
-**🌐 Live Interactive Website:** [https://nabeelvolt.github.io/Air-Quality-Health-A-Regional-UK-Analysis/](https://nabeelvolt.github.io/Air-Quality-Health-A-Regional-UK-Analysis/)
+**🌐 Live Interactive Website:** [https://mo-rayan-siddiqui.github.io/Air-Quality-Health-A-Regional-UK-Analysis/](https://mo-rayan-siddiqui.github.io/Air-Quality-Health-A-Regional-UK-Analysis/)
 **📄 Full Research Report:** [Full_Research_Report.md](./Full_Research_Report.md)
 
 This project investigates the relationship between regional air pollution and respiratory health in the UK. By merging DEFRA's UK air quality monitoring data (PM2.5, NO2, O3) with NHS respiratory hospital admissions data (by region), we aim to identify whether localized pollution levels can predictably explain hospital demand.
@@ -47,7 +47,7 @@ To replicate this analysis from scratch on your local machine, follow these exac
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/Nabeelvolt/Air-Quality-Health-A-Regional-UK-Analysis.git
+   git clone https://github.com/Mo-Rayan-Siddiqui/Air-Quality-Health-A-Regional-UK-Analysis.git
    cd Air-Quality-Health-A-Regional-UK-Analysis
    ```
 
